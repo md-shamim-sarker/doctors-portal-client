@@ -4,7 +4,7 @@ import footer from '../../../assets/images/footer.png';
 
 const Footer = () => {
     return (
-        <footer style={{backgroundImage: `url(${footer})`}}>
+        <footer style={{background: `url(${footer})`}}>
             <div className="footer p-10 grid grid-cols-2 lg:grid-cols-3 justify-items-center">
                 <div>
                     <span className="footer-title">Services</span>
