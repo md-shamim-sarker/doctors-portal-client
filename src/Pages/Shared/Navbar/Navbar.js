@@ -20,7 +20,7 @@ const Navbar = () => {
     </>;
 
     return (
-        <div className="navbar justify-between">
+        < div className="max-w-7xl mx-auto navbar justify-between">
             <div className="navbar-start">
                 <div className="dropdown block lg:hidden">
                     <label className="btn btn-circle btn-ghost swap swap-rotate">
