@@ -1,14 +1,6 @@
-import React, {useState} from 'react';
 import {Link, NavLink} from 'react-router-dom';
-import {GiHamburgerMenu} from 'react-icons/gi';
 
 const Navbar = () => {
-    const [open, setOpen] = useState(true);
-
-    const toggleMenuHandler = (event) => {
-        event.preventDefault();
-        setOpen(!open);
-    };
 
     const menuItems = <>
         <li><NavLink to={"/"} activeclassname="bg-primary">Home</NavLink></li>
@@ -23,13 +15,12 @@ const Navbar = () => {
         < div className="max-w-7xl mx-auto navbar justify-between">
             <div className="navbar-start">
                 <div className="dropdown block lg:hidden">
-                    <label className="btn btn-circle btn-ghost swap swap-rotate">
-                        <button onClick={toggleMenuHandler}>
-                            <GiHamburgerMenu className='w-5 h-5'></GiHamburgerMenu>
-                        </button>
+
+                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
 
-                    <ul tabIndex={0} className={`menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 ${open ? "block" : "hidden"}`} onClick={toggleMenuHandler}>
+                    <ul tabIndex={0} className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'>
                         {menuItems}
                     </ul>
                 </div>
