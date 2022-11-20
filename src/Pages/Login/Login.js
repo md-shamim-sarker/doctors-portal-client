@@ -1,18 +1,22 @@
 import React, {useContext} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import login from '../../assets/images/login.png';
 import {AuthContext} from '../../contexts/UserContext';
 
 const Login = () => {
     const {loginWithGoogle, loginUser} = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
+    console.log(from);
 
     const loginWithGoogleHandler = () => {
         loginWithGoogle()
             .then(result => {
                 console.log(result.user);
                 console.log('Login with google');
-                navigate("/");
+                navigate(from, {replace: true});
             })
             .catch(error => console.log(error));
     };
@@ -22,12 +26,11 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        // console.log(email, password);
         loginUser(email, password)
             .then(result => {
                 console.log(result.user);
+                navigate(from, {replace: true});
                 form.reset();
-                navigate("/");
             })
             .catch(err => console.log(err));
     };

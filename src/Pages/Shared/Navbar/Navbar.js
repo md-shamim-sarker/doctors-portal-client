@@ -16,6 +16,7 @@ const Navbar = () => {
         <li><NavLink to={"/appointment"} activeclassname="bg-primary">Apointment</NavLink></li>
         <li><NavLink to={"/reviews"} activeclassname="bg-primary">Reviews</NavLink></li>
         <li><NavLink to={"/contact-us"} activeclassname="bg-primary">Contact Us</NavLink></li>
+        <li><NavLink to={"/dashboard"} activeclassname="bg-primary">Dashboard</NavLink></li>
         <li>
             {
                 user?.uid
