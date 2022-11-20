@@ -6,6 +6,7 @@ import ContactUs from "../../Pages/ContactUs/ContactUs/ContactUs";
 import Error404 from "../../Pages/Error404.js/Error404";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
+import Register from "../../Pages/Login/Register";
 import Reviews from "../../Pages/Reviews/Reviews/Reviews";
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login></Login>
+            },
+            {
+                path: "/register",
+                element: <Register></Register>
             }
         ],
         errorElement: <Error404></Error404>

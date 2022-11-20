@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import login from '../../assets/images/login.png';
 
-const Login = () => {
+const Register = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -18,7 +18,13 @@ const Login = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={onSubmitHandler} className="card-body">
-                        <h2 className='text-center text-2xl font-bold'>Login Form</h2>
+                        <h2 className='text-center text-2xl font-bold'>Registration Form</h2>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Full Name</span>
+                            </label>
+                            <input name='fullName' type="text" placeholder="Full Name" className="input input-bordered" />
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -30,17 +36,13 @@ const Login = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input name='password' type="password" placeholder="password" className="input input-bordered" />
-                            <label className="label">
-                                <Link to={"/"} className="label-text-alt link link-hover">Forgot password?</Link>
-                            </label>
                         </div>
-                        <button type='submit' className="btn btn-primary">Login</button>
+                        <button type='submit' className="btn btn-primary">Register</button>
                     </form>
                     <div className='card-body -mt-16'>
-                        <button className="btn btn-primary mt-4">Login with Google</button>
                         <div className='flex gap-1'>
-                            <span>You don't have account? Please</span>
-                            <Link to={"/register"} className='underline'>Register</Link>
+                            <span>You already have account? Please</span>
+                            <Link to={"/login"} className='underline'>Login</Link>
                         </div>
                     </div>
                 </div>
@@ -49,4 +51,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

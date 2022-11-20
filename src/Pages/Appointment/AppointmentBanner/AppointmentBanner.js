@@ -13,9 +13,9 @@ const AppointmentBanner = ({selectedDate, setSelectedDate}) => {
                 backgroundPosition: 'bottom left',
             }}
         >
-            <div className="hero-content flex-col lg:flex-row-reverse">
+            <div className="hero-content flex-col lg:flex-row-reverse gap-x-10">
                 <img src={banner} className="w-full lg:w-1/2 rounded-lg shadow-2xl" alt='...' />
-                <div className='w-full lg:w-1/2 flex items-end flex-col'>
+                <div className='w-full lg:w-1/2 flex items-center lg:items-end flex-col'>
                     <DayPicker
                         mode='single'
                         selected={selectedDate}

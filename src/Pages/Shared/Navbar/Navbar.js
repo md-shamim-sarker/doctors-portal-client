@@ -1,7 +1,10 @@
+import {useContext} from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import {AuthContext} from '../../../contexts/UserContext';
 
 const Navbar = () => {
-
+    const {user} = useContext(AuthContext);
+    console.log(user);
     const menuItems = <>
         <li><NavLink to={"/"} activeclassname="bg-primary">Home</NavLink></li>
         <li><NavLink to={"/about"} activeclassname="bg-primary">About</NavLink></li>
