@@ -1,15 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import login from '../../assets/images/login.png';
+import {AuthContext} from '../../contexts/UserContext';
 
 const Register = () => {
+    const {createUser, updateUser} = useContext(AuthContext);
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const form = e.target;
+        const fullName = form.fullName.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        console.log(fullName, email, password);
+        createUser(email, password)
+            .then((result) => {
+                updateUser(fullName)
+                    .then(() => {
+                        console.log(result.user);
+                        form.reset();
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
     };
+
     return (
         <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">

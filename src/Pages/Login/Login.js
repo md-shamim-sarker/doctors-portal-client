@@ -4,7 +4,7 @@ import login from '../../assets/images/login.png';
 import {AuthContext} from '../../contexts/UserContext';
 
 const Login = () => {
-    const {loginWithGoogle} = useContext(AuthContext);
+    const {loginWithGoogle, loginUser} = useContext(AuthContext);
 
     const loginWithGoogleHandler = () => {
         loginWithGoogle()
@@ -20,7 +20,12 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+        // console.log(email, password);
+        loginUser(email, password)
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(err => console.log(err));
     };
     return (
         <div className="hero min-h-screen">
