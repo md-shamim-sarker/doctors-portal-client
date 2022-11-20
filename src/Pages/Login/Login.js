@@ -1,16 +1,18 @@
 import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import login from '../../assets/images/login.png';
 import {AuthContext} from '../../contexts/UserContext';
 
 const Login = () => {
     const {loginWithGoogle, loginUser} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const loginWithGoogleHandler = () => {
         loginWithGoogle()
             .then(result => {
                 console.log(result.user);
                 console.log('Login with google');
+                navigate("/");
             })
             .catch(error => console.log(error));
     };
@@ -24,6 +26,8 @@ const Login = () => {
         loginUser(email, password)
             .then(result => {
                 console.log(result.user);
+                form.reset();
+                navigate("/");
             })
             .catch(err => console.log(err));
     };
