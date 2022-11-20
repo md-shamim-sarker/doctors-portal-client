@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import login from '../../assets/images/login.png';
+import {AuthContext} from '../../contexts/UserContext';
 
 const Login = () => {
+    const {loginWithGoogle} = useContext(AuthContext);
+
+    const loginWithGoogleHandler = () => {
+        loginWithGoogle()
+            .then(result => {
+                console.log(result.user);
+                console.log('Login with google');
+            })
+            .catch(error => console.log(error));
+    };
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -37,7 +49,7 @@ const Login = () => {
                         <button type='submit' className="btn btn-primary">Login</button>
                     </form>
                     <div className='card-body -mt-16'>
-                        <button className="btn btn-primary mt-4">Login with Google</button>
+                        <button onClick={loginWithGoogleHandler} className="btn btn-primary mt-4">Login with Google</button>
                         <div className='flex gap-1'>
                             <span>You don't have account? Please</span>
                             <Link to={"/register"} className='underline'>Register</Link>
