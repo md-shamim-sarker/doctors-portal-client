@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {format} from 'date-fns';
+import {AuthContext} from '../../../contexts/UserContext';
 
 const BookingModal = ({treatment, setTreatment, selectedDate}) => {
+    const {user} = useContext(AuthContext);
     const {name, slots} = treatment;
     const date = format(selectedDate, 'PP');
+    console.log(user);
 
     const handleBooking = event => {
         event.preventDefault();
@@ -20,9 +23,18 @@ const BookingModal = ({treatment, setTreatment, selectedDate}) => {
             email,
             phone
         };
-        console.log(booking);
-        setTreatment(null);
+
+        fetch('http://localhost:5000/bookings', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(booking)
+        }).then(() => {
+            setTreatment(null);
+        }).catch(err => {
+            console.log(err);
+        });
     };
+
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -37,8 +49,8 @@ const BookingModal = ({treatment, setTreatment, selectedDate}) => {
                                 slots.map((slot, index) => <option key={index} value={slot}>{slot}</option>)
                             }
                         </select>
-                        <input name='name' type="text" placeholder="Your Name" className="input input-bordered w-full" />
-                        <input name='email' type="email" placeholder="Email Address" className="input input-bordered w-full" />
+                        <input name='name' type="text" value={user?.displayName} disabled className="input input-bordered w-full" />
+                        <input name='email' type="email" value={user?.email} disabled className="input input-bordered w-full" />
                         <input name='phone' type="text" placeholder="Phone Number" className="input input-bordered w-full" />
                         <button type="submit" htmlFor="my-modal-5" className="btn w-full">Submit</button>
                     </form>
