@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {format} from 'date-fns';
 import {AuthContext} from '../../../contexts/UserContext';
 
-const BookingModal = ({treatment, setTreatment, selectedDate}) => {
+const BookingModal = ({treatment, setTreatment, selectedDate, refetch}) => {
     const {user} = useContext(AuthContext);
     const {name, slots} = treatment;
     const date = format(selectedDate, 'PP');
@@ -28,11 +28,18 @@ const BookingModal = ({treatment, setTreatment, selectedDate}) => {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(booking)
-        }).then(() => {
-            setTreatment(null);
-        }).catch(err => {
-            console.log(err);
-        });
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.acknowledged) {
+                    setTreatment(null);
+                    refetch();
+                    alert('Booking Confirmed');
+                } else {
+                    setTreatment(null);
+                    alert('Already Booked');
+                }
+            });
     };
 
     return (

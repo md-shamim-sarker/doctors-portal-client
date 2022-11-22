@@ -1,9 +1,10 @@
 import {createBrowserRouter} from "react-router-dom";
+import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import About from "../../Pages/About/About/About";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
 import ContactUs from "../../Pages/ContactUs/ContactUs/ContactUs";
-import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
+import MyAppointment from "../../Pages/Dashboard/MyAppointment/MyAppointment";
 import Error404 from "../../Pages/Error404.js/Error404";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
@@ -44,13 +45,19 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <Register></Register>
             },
-            {
-                path: "/dashboard",
-                element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>
-            }
         ],
         errorElement: <Error404></Error404>
-    }
+    },
+    {
+        path: "/dashboard",
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        children: [
+            {
+                path: "/dashboard",
+                element: <MyAppointment></MyAppointment>
+            }
+        ]
+    },
 ]);
 
 export default router;
