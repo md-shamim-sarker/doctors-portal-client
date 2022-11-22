@@ -1,11 +1,18 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import login from '../../assets/images/login.png';
 import {AuthContext} from '../../contexts/UserContext';
+import useToken from '../../hooks/useToken';
 
 const Register = () => {
     const {createUser, updateUser} = useContext(AuthContext);
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
+
+    if(token) {
+        navigate("/");
+    }
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -20,11 +27,28 @@ const Register = () => {
                     .then(() => {
                         console.log(result.user);
                         form.reset();
-                        navigate("/");
+                        saveUser(fullName, email);
                     })
                     .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
+    };
+
+    const saveUser = (name, email) => {
+        const user = {name, email};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            }).catch(err => {
+                console.log(err);
+            });
     };
 
     return (

@@ -1,22 +1,28 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import login from '../../assets/images/login.png';
 import {AuthContext} from '../../contexts/UserContext';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const {loginWithGoogle, loginUser} = useContext(AuthContext);
+    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [token] = useToken(loginUserEmail);
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || "/";
-    console.log(from);
+
+    if(token) {
+        navigate(from, {replace: true});
+    }
 
     const loginWithGoogleHandler = () => {
         loginWithGoogle()
             .then(result => {
-                console.log(result.user);
-                console.log('Login with google');
-                navigate(from, {replace: true});
+                const user = result.user;
+                console.log(user);
+                // setLoginUserEmail(user.email);
             })
             .catch(error => console.log(error));
     };
@@ -28,12 +34,13 @@ const Login = () => {
         const password = form.password.value;
         loginUser(email, password)
             .then(result => {
-                console.log(result.user);
-                navigate(from, {replace: true});
+                const user = result.user;
+                setLoginUserEmail(user.email);
                 form.reset();
             })
             .catch(err => console.log(err));
     };
+
     return (
         <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
